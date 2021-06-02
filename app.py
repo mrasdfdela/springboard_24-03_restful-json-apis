@@ -33,3 +33,24 @@ def create_cupcake():
     db.session.add(new_cupcake)
     db.session.commit()
     return (jsonify(cupcake=new_cupcake.serialize()), 201)
+
+@app.route('/api/cupcakes/<int:id>', methods=['PATCH'])
+def update_cupcake(id):
+    req = request.json
+    cupcake = Cupcake.query.get(id)
+
+    cupcake.flavor = req.get('flavor',cupcake.flavor)
+    cupcake.size = req.get('size',cupcake.size)
+    cupcake.rating = req.get('rating',cupcake.rating)
+    cupcake.image = req.get('image', cupcake.image)
+
+    db.session.commit()
+    return jsonify(cupcake=cupcake.serialize())
+
+@app.route('/api/cupcakes/<int:id>', methods=["DELETE"])
+def delete_cupcake(id):
+    cupcake = Cupcake.query.get_or_404(id)
+    db.session.delete(cupcake)
+    db.session.commit()
+
+    return jsonify(msg="deleted")

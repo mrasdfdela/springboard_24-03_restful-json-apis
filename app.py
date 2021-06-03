@@ -25,11 +25,12 @@ def get_cupcake(id):
 def create_cupcake():
     req = request.json
     new_cupcake = Cupcake(
-                flavor = req['flavor'],
-                size = req['size'],
-                rating = req['rating'],
-                image = req['image']
+                flavor = req.get('flavor'),
+                size = req.get('size'),
+                rating = req.get('rating'),
+                image = req.get('image')
     )
+
     db.session.add(new_cupcake)
     db.session.commit()
     return (jsonify(cupcake=new_cupcake.serialize()), 201)
@@ -55,3 +56,8 @@ def delete_cupcake(id):
     db.session.commit()
 
     return jsonify(msg="deleted")
+
+@app.route('/')
+def home_page():
+    cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
+    return render_template('home_page.html', cupcakes=cupcakes)

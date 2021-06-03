@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<div class="container">
+  <h1>Hello Cupcakes!</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+  <ul id='cupcake-list'></ul>
+  <form>
+    <div class="form-group">
+      <label for="flavor">Flavor</label>
+      <input type="text" class='form-control' data-type='flavor' value='Jerry'>
+    </div>
+    <div class="form-group">
+      <label for="size">Size</label>
+      <input type="text" class='form-control' data-type='size' value="6'">
+    </div>
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      <input type="text" class='form-control' data-type='rating' value="11">
+    </div>
+    <div class="form-group">
+      <label for="img_url">Image</label>
+      <input type="text" class='form-control' data-type='img_url'>
+    </div>
+    <button>Submit!</button>
+  </form>
+</div>
+{% endblock %}
